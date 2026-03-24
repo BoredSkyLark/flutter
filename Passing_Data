@@ -1,0 +1,95 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Data Passing Demo',
+      home: const FirstScreen(),
+    );
+  }
+}
+
+// ================= FIRST SCREEN =================
+class FirstScreen extends StatefulWidget {
+  const FirstScreen({super.key});
+
+  @override
+  State<FirstScreen> createState() => _FirstScreenState();
+}
+
+class _FirstScreenState extends State<FirstScreen> {
+  final TextEditingController _controller = TextEditingController();
+
+  void _navigateToSecondScreen() {
+    String userInput = _controller.text;
+
+    if (userInput.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Please enter your name")));
+      return;
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SecondScreen(name: userInput)),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("First Screen")),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("Enter your name:", style: TextStyle(fontSize: 18)),
+            const SizedBox(height: 10),
+
+            TextField(
+              controller: _controller,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: "Type your name here",
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            ElevatedButton(
+              onPressed: _navigateToSecondScreen,
+              child: const Text("Go to Second Screen"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ================= SECOND SCREEN =================
+class SecondScreen extends StatelessWidget {
+  final String name;
+
+  const SecondScreen({super.key, required this.name});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Second Screen")),
+      body: Center(
+        child: Text("Hello, $name 👋", style: const TextStyle(fontSize: 24)),
+      ),
+    );
+  }
+}
