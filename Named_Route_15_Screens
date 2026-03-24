@@ -1,0 +1,312 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  static const String route1 = '/';
+  static const String route2 = '/screen2';
+  static const String route3 = '/screen3';
+  static const String route4 = '/screen4';
+  static const String route5 = '/screen5';
+  static const String route6 = '/screen6';
+  static const String route7 = '/screen7';
+  static const String route8 = '/screen8';
+  static const String route9 = '/screen9';
+  static const String route10 = '/screen10';
+  static const String route11 = '/screen11';
+  static const String route12 = '/screen12';
+  static const String route13 = '/screen13';
+  static const String route14 = '/screen14';
+  static const String route15 = '/screen15';
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: '15 Screens Named Routes Demo',
+      initialRoute: route1,
+      routes: {
+        route1: (context) => const Screen1(),
+        route2: (context) => const Screen2(),
+        route3: (context) => const Screen3(),
+        route4: (context) => const Screen4(),
+        route5: (context) => const Screen5(),
+        route6: (context) => const Screen6(),
+        route7: (context) => const Screen7(),
+        route8: (context) => const Screen8(),
+        route9: (context) => const Screen9(),
+        route10: (context) => const Screen10(),
+        route11: (context) => const Screen11(),
+        route12: (context) => const Screen12(),
+        route13: (context) => const Screen13(),
+        route14: (context) => const Screen14(),
+        route15: (context) => const Screen15(),
+      },
+    );
+  }
+}
+
+class NavigationButtons extends StatelessWidget {
+  final String title;
+  final String? previousRoute;
+  final String? nextRoute;
+
+  const NavigationButtons({
+    super.key,
+    required this.title,
+    this.previousRoute,
+    this.nextRoute,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(title), centerTitle: true),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 30),
+              if (previousRoute != null)
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, previousRoute!);
+                  },
+                  child: const Text('Go to Previous Screen'),
+                ),
+              const SizedBox(height: 15),
+              if (nextRoute != null)
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, nextRoute!);
+                  },
+                  child: const Text('Go to Next Screen'),
+                ),
+              const SizedBox(height: 15),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Back'),
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    MyApp.route1,
+                    (route) => false,
+                  );
+                },
+                child: const Text('Go to Home Screen'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Screen1 extends StatelessWidget {
+  const Screen1({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(title: 'Screen 1', nextRoute: MyApp.route2);
+  }
+}
+
+class Screen2 extends StatelessWidget {
+  const Screen2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(
+      title: 'Screen 2',
+      previousRoute: MyApp.route1,
+      nextRoute: MyApp.route3,
+    );
+  }
+}
+
+class Screen3 extends StatelessWidget {
+  const Screen3({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(
+      title: 'Screen 3',
+      previousRoute: MyApp.route2,
+      nextRoute: MyApp.route4,
+    );
+  }
+}
+
+class Screen4 extends StatelessWidget {
+  const Screen4({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(
+      title: 'Screen 4',
+      previousRoute: MyApp.route3,
+      nextRoute: MyApp.route5,
+    );
+  }
+}
+
+class Screen5 extends StatelessWidget {
+  const Screen5({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(
+      title: 'Screen 5',
+      previousRoute: MyApp.route4,
+      nextRoute: MyApp.route6,
+    );
+  }
+}
+
+class Screen6 extends StatelessWidget {
+  const Screen6({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(
+      title: 'Screen 6',
+      previousRoute: MyApp.route5,
+      nextRoute: MyApp.route7,
+    );
+  }
+}
+
+class Screen7 extends StatelessWidget {
+  const Screen7({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(
+      title: 'Screen 7',
+      previousRoute: MyApp.route6,
+      nextRoute: MyApp.route8,
+    );
+  }
+}
+
+class Screen8 extends StatelessWidget {
+  const Screen8({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(
+      title: 'Screen 8',
+      previousRoute: MyApp.route7,
+      nextRoute: MyApp.route9,
+    );
+  }
+}
+
+class Screen9 extends StatelessWidget {
+  const Screen9({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(
+      title: 'Screen 9',
+      previousRoute: MyApp.route8,
+      nextRoute: MyApp.route10,
+    );
+  }
+}
+
+class Screen10 extends StatelessWidget {
+  const Screen10({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(
+      title: 'Screen 10',
+      previousRoute: MyApp.route9,
+      nextRoute: MyApp.route11,
+    );
+  }
+}
+
+class Screen11 extends StatelessWidget {
+  const Screen11({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(
+      title: 'Screen 11',
+      previousRoute: MyApp.route10,
+      nextRoute: MyApp.route12,
+    );
+  }
+}
+
+class Screen12 extends StatelessWidget {
+  const Screen12({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(
+      title: 'Screen 12',
+      previousRoute: MyApp.route11,
+      nextRoute: MyApp.route13,
+    );
+  }
+}
+
+class Screen13 extends StatelessWidget {
+  const Screen13({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(
+      title: 'Screen 13',
+      previousRoute: MyApp.route12,
+      nextRoute: MyApp.route14,
+    );
+  }
+}
+
+class Screen14 extends StatelessWidget {
+  const Screen14({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(
+      title: 'Screen 14',
+      previousRoute: MyApp.route13,
+      nextRoute: MyApp.route15,
+    );
+  }
+}
+
+class Screen15 extends StatelessWidget {
+  const Screen15({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationButtons(
+      title: 'Screen 15',
+      previousRoute: MyApp.route14,
+    );
+  }
+}
