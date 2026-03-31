@@ -1,0 +1,174 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const FoodMenuApp());
+}
+
+class FoodMenuApp extends StatelessWidget {
+  const FoodMenuApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Food Menu App',
+      theme: ThemeData(primarySwatch: Colors.orange),
+      home: const HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  void openCategory(
+    BuildContext context,
+    String title,
+    List<Map<String, String>> items,
+  ) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            CategoryScreen(categoryTitle: title, foodItems: items),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Map<String, String>> mainCourseItems = [
+      {'name': 'Nasi Goreng', 'price': 'RM 12.00'},
+      {'name': 'Chicken Chop', 'price': 'RM 18.00'},
+      {'name': 'Spaghetti Bolognese', 'price': 'RM 15.00'},
+    ];
+
+    final List<Map<String, String>> dessertItems = [
+      {'name': 'Chocolate Cake', 'price': 'RM 8.00'},
+      {'name': 'Ice Cream', 'price': 'RM 6.00'},
+      {'name': 'Cheesecake', 'price': 'RM 10.00'},
+    ];
+
+    final List<Map<String, String>> drinksItems = [
+      {'name': 'Orange Juice', 'price': 'RM 5.00'},
+      {'name': 'Coffee', 'price': 'RM 4.00'},
+      {'name': 'Milk Tea', 'price': 'RM 6.00'},
+    ];
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Food Categories'), centerTitle: true),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          CategoryButton(
+            title: 'Main Course',
+            imagePath: 'assets/images/main_course.png',
+            onTap: () {
+              openCategory(context, 'Main Course', mainCourseItems);
+            },
+          ),
+          const SizedBox(height: 16),
+          CategoryButton(
+            title: 'Dessert',
+            imagePath: 'assets/images/desert.jpg',
+            onTap: () {
+              openCategory(context, 'Dessert', dessertItems);
+            },
+          ),
+          const SizedBox(height: 16),
+          CategoryButton(
+            title: 'Drinks',
+            imagePath: 'assets/images/drinks.jpg',
+            onTap: () {
+              openCategory(context, 'Drinks', drinksItems);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CategoryButton extends StatelessWidget {
+  final String title;
+  final String imagePath;
+  final VoidCallback onTap;
+
+  const CategoryButton({
+    super.key,
+    required this.title,
+    required this.imagePath,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        height: 180,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          image: DecorationImage(
+            image: AssetImage(imagePath),
+            fit: BoxFit.cover,
+          ),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 6,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: Colors.black.withOpacity(0.35),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CategoryScreen extends StatelessWidget {
+  final String categoryTitle;
+  final List<Map<String, String>> foodItems;
+
+  const CategoryScreen({
+    super.key,
+    required this.categoryTitle,
+    required this.foodItems,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(categoryTitle), centerTitle: true),
+      body: ListView.builder(
+        itemCount: foodItems.length,
+        itemBuilder: (context, index) {
+          return Card(
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: ListTile(
+              leading: const Icon(Icons.restaurant_menu, color: Colors.orange),
+              title: Text(foodItems[index]['name']!),
+              subtitle: Text(foodItems[index]['price']!),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
